@@ -1,7 +1,3 @@
-import React from "react";
-
-
-
 function Signup() {
     return (
       <div>
@@ -9,5 +5,4 @@ function Signup() {
       </div>
     );
   }
-  
   export default Signup;

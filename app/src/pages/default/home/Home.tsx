@@ -1,11 +1,8 @@
-import React from "react";
-
-
 
 function Home() {
     return (
       <div>
-        Page d'acceuil
+        <h1>Page d'acceuil</h1>
       </div>
     );
   }

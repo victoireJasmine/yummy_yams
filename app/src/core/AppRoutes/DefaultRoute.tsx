@@ -1,9 +1,9 @@
-import React from 'react';
+
 import { RouterName } from './RouterNames';
 import type { RouteObject } from 'react-router-dom';
-const Home = React.lazy(() => import('../../pages/default/home/Home'));
-const Login = React.lazy(() => import('../../pages/default/login/Login'));
-const Signup = React.lazy(() => import('../../pages/default/signup/Signup'));
+import Home from '../../pages/default/home/Home';
+import Signup from '../../pages/default/signup/Signup';
+import Login from '../../pages/default/login/Login';
 
 export const defaultRouteConfig: RouteObject[] = [
   {
