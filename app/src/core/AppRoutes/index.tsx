@@ -1,5 +1,6 @@
 import { errorPageRoutesConfig } from './ErrorPageRoutes';
 import { defaultRouteConfig } from './DefaultRoute';
+import { anonymousRouteConfig } from './AnonymousRoute';
 import { Navigate } from 'react-router-dom';
 import { RouterName } from './RouterNames';
 import type { RouteObject } from 'react-router-dom';
@@ -16,4 +17,6 @@ const defaultStructureRoute: RouteObject[] = [
 ];
 const principalStructureRoute: RouteObject[] = [...defaultRouteConfig];
 const errorStructureRoute: RouteObject[] = [...errorPageRoutesConfig];
-export { defaultStructureRoute, principalStructureRoute, errorStructureRoute };
+const anonymousStructureRoute: RouteObject[] = [...anonymousRouteConfig];
+
+export { defaultStructureRoute, principalStructureRoute, errorStructureRoute, anonymousStructureRoute };

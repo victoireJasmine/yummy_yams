@@ -1,11 +1,9 @@
-import { Request, Response } from 'express';
 import User, { IUser } from '../models/userModel';
-import jwt from 'jsonwebtoken';
-
-const SECRET_KEY = 'votre_secret_ici';
+import { JwtFactoryUtils } from '../Utils/jwt.utils';
+import { CustomRequest, CustomResponse } from '../Type';
 
 // Inscription
-export const signUp = async (req: Request, res: Response) => {
+export const signUp = async (req: CustomRequest, res: CustomResponse) => {
   try {
     const { name, email, password } = req.body;
     const user = new User({ name, email, password });
@@ -17,7 +15,7 @@ export const signUp = async (req: Request, res: Response) => {
 };
 
 // Connexion
-export const signIn = async (req: Request, res: Response) => {
+export const signIn = async (req: CustomRequest, res: CustomResponse) => {
     try {
       const { email, password } = req.body;
       const user = await User.findOne({ email }).exec();
@@ -26,8 +24,7 @@ export const signIn = async (req: Request, res: Response) => {
         return res.status(401).json({ message: "Email ou mot de passe incorrect" });
       }
   
-      // Génération du token JWT
-      const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: '1h' });
+      const token = JwtFactoryUtils.generateToken({ id: user._id});
   
       res.status(200).json({
         message: "Connexion réussie",
@@ -37,3 +34,15 @@ export const signIn = async (req: Request, res: Response) => {
       res.status(500).json({ message: "Erreur lors de la connexion" });
     }
   };
+
+// Me
+export const me = async (req: CustomRequest, res: CustomResponse) => {
+  try {
+    const id = req.user?.id;
+    const user = await User.findById(id ,{password:0}).exec();
+    res.status(200).json(user);
+  }
+  catch (error) {
+    res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
+    };
+  }

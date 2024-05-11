@@ -1,6 +1,7 @@
 import { apis } from '../axios';
 import { AxiosResponse } from 'axios';
 import { SigninFactory, Signin } from '../../normalizr/auth/signin';
+import { User, UserFactory } from '../../normalizr/user/user';
 
 
 export interface LoginParams {
@@ -27,4 +28,11 @@ export const createUser = (params: CreateUserParams): Promise<void> => {
   return apis.yummy
     .post(`/auth/signup`, params)
 };
+export const getMe = (): Promise<User> => {
+  return apis.yummy
+    .get(`/auth/me`)
+    .then((response: AxiosResponse): Promise<User> => {
+      return Promise.resolve(UserFactory.createUser(response.data));
+    });
+}
 

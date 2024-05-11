@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Pastries, { IPastries } from '../models/pastriesModel';
+import Pastries, { IPastry } from '../models/pastryModel';
 import fs from 'fs';
 
 

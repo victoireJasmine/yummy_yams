@@ -1,8 +1,11 @@
 import { Formik } from 'formik';
 import {String } from '../../../modules/Utils';
 import { login , LoginParams } from '../../../network/endpoints/authentification';
-import { useState } from 'react';
-
+import { useContext, useState } from 'react';
+import { SessionContext } from '../../../hooks/context/SessionContext';
+import { RouterName } from '../../../core/AppRoutes/RouterNames';
+import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 interface ErrorLogin {
   email: string;
@@ -14,29 +17,30 @@ interface ErrorLogin {
 const Login = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [isError, setIsError] = useState<boolean>(false);
+  const useSession = useContext(SessionContext);
+
   const onLogin = (values: LoginParams):void => {
     login(values)
       .then((response) => {
         setIsError(false);
         if (response.token) {
-          //todo: mettre cette logique dans une fonction contexte de création de session
-          localStorage.setItem('TOKER_USER_YUMMY', response.token);
           setMessage(response.message);
+          if(useSession){
+            useSession.login(response.token)
+          }
         } else {
           setMessage('Erreur de connexion');
           setIsError(true);
         }
       })
       .catch((error) => {
-        console.log(error);
-        setMessage(error.message?.message || 'Erreur de connexion');
+        setMessage(error.message?.message || error.message || 'Erreur de connexion');
         setIsError(true);
       });
   };
   return (
     <div>
       <h1>Se connecter</h1>
-      <p>{import.meta.env.VITE_YUMMY_API}</p>
       {message && <p style={{color:isError?'red':'green'}}>{message}</p>}
       <Formik
         initialValues={{ email: '', password: '' }}
@@ -98,8 +102,10 @@ const Login = () => {
               Submit
             </button>
           </form>
+          
         )}
       </Formik>
+      <p>Vous n'avez pas de compte ? <NavLink to={RouterName.SIGNUP.path}>Inscrivez-vous</NavLink></p>
     </div>
   );
 

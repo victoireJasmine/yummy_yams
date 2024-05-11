@@ -2,9 +2,11 @@ import { useRoutes } from 'react-router-dom';
 import {
   defaultStructureRoute,
   principalStructureRoute,
+  anonymousStructureRoute,
   errorStructureRoute,
 } from './../AppRoutes';
 import MainLayout from './MainLayout';
+import AnonymousLayout from './AnonymousLayout';
 
 const AppLayout = () => {
   const routes = useRoutes([
@@ -13,6 +15,10 @@ const AppLayout = () => {
     {
       element: <MainLayout />,
       children: [...principalStructureRoute],
+    },
+    {
+      element: <AnonymousLayout />,
+      children: [...anonymousStructureRoute],
     },
   ]);
   return routes;
