@@ -18,6 +18,29 @@ export const createPastries = async (req: Request, res: Response) => {
 
 
 };
-;
 
+// ClearAll
+export const clearAll = async () => {
+    const clear = await Pastries.deleteMany().exec();
+
+}
+// Get All
+export const getAllPastries = async (req: Request, res: Response) => {
+    const pastries = await Pastries.find().exec();
+    res.status(200).json(pastries);
+}
+// GetAllValid
+export const getAllPastriesInStock = async ():Promise<IPastry[]> => {
+    const pastries = await Pastries.find({ $expr: { $gt: ['$stock', '$quantityWon'] } }).exec();
+    return pastries;
+}
+
+// update stock
+export const updateStock = async (pastriesId: string[]) => {
+    const pastries = await Pastries.find({_id: {$in: pastriesId}}).exec();
+    pastries.forEach(async (pastry) => {
+        pastry.quantityWon= pastry.quantityWon + 1;
+        await pastry.save();
+    });
+}
 

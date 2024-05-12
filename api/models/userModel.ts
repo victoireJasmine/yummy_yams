@@ -1,14 +1,15 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
-import { IWinner } from './winnerModel';
+import { IGame} from './gameModel';
 
 export interface IUser extends Document {
   name: string;  
   email: string;
   password: string;
   comparePassword: (password: string) => Promise<boolean>;
-  tentative: number;
-  wins: IWinner[];
+  wins: IGame[];
+  nbGame: number;
+
 
 }
 
@@ -16,8 +17,9 @@ const UserSchema: Schema = new Schema({
   name: { type: String, required: true },  
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  tentative: { type: Number, default: 3 },
-  wins: [{ type: Schema.Types.ObjectId, ref: 'Winner' }]
+  nbGame: { type: Number, default: 0 },
+
+  wins: [{ type: Schema.Types.ObjectId, ref: 'Game' }]
 });
 
 // Avant de sauvegarder l'utilisateur, hachez le mot de passe
