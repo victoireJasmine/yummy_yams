@@ -1,7 +1,7 @@
 import { BadInitializationError } from '../../modules/Errors';
+import { MessageResponse } from '../common';
 
-export interface Signin {
-  message: string;
+export interface Signin extends MessageResponse {
   token: string;
 }
 

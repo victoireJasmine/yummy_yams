@@ -9,7 +9,6 @@ import axios, {
   import { NetworkError } from '../modules/Errors';
 import { SessionCookie } from '../modules/session';
 
-
   
   const parameters = {
     headers: {
@@ -17,6 +16,7 @@ import { SessionCookie } from '../modules/session';
     },
     timeout: 6000,
   };
+
   const onReqError = () => (err: Error | AxiosError) => {
     Logger.warn('Axios interceptor: request failure', err);
   
@@ -24,6 +24,11 @@ import { SessionCookie } from '../modules/session';
   };
   const onRespError = () => (err: Error | AxiosError) => {
     Logger.warn('Axios interceptor: response failure', err);
+    if (err.response?.status===401){
+      SessionCookie.destroy();
+      // alert('session expirée, veuillez-vous reconnecter');
+      // window.location.href='/'
+    }
   
     const message = err.response?.data ?? err.message;
     throw new NetworkError(err, message);

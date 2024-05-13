@@ -1,7 +1,7 @@
 import express from 'express';
 import * as gameController from '../controllers/gameController';
 import { JwtFactoryUtils } from '../Utils/jwt.utils';
-import { CustomRequest, CustomResponse } from '../Type';
+import { CustomRequest, CustomResponse } from '../type';
 import * as pastryController from '../controllers/pastryController';
 
 const router = express.Router();
@@ -14,7 +14,7 @@ function randomSort(a:any , b:any) {
 }
 
 // Route d'inscription
-router.post('/play/:id', [JwtFactoryUtils.passeport, gameController.checkGame, async(req: CustomRequest, res: CustomResponse) => {
+router.post('/play/:id', [JwtFactoryUtils.passeport, pastryController.checkAvailableStock, gameController.checkGame, async(req: CustomRequest, res: CustomResponse) => {
 
     const played = await gameController.playGame(req);
     if(!played){
@@ -37,7 +37,8 @@ router.post('/play/:id', [JwtFactoryUtils.passeport, gameController.checkGame, a
     req.body.pastriesId = pastriesId;
     return gameController.winGame(req, res);
 } ] );
-router.post('/start', [JwtFactoryUtils.passeport , gameController.startGame] );
+
+router.post('/start', [JwtFactoryUtils.passeport , pastryController.checkAvailableStock, gameController.startGame] );
 
 //Route Winners
 router.get('/winners',  gameController.getWinnersGame);

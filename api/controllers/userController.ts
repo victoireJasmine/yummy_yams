@@ -1,6 +1,6 @@
 import User, { IUser } from '../models/userModel';
 import { JwtFactoryUtils } from '../Utils/jwt.utils';
-import { CustomRequest, CustomResponse } from '../Type';
+import { CustomRequest, CustomResponse } from '../type';
 
 // Inscription
 export const signUp = async (req: CustomRequest, res: CustomResponse) => {

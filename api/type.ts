@@ -1,3 +1,4 @@
 import { Request, Response } from 'express';
-export type CustomRequest = Request & { user?: { id: string } | null};
+import { IPastry } from './models/pastryModel';
+export type CustomRequest = Request & { user?: { id: string } | null, pastries?:IPastry[]};
 export type CustomResponse = Response;

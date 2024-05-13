@@ -14,9 +14,14 @@ const MainLayout = () => {
   return (
     <>
       <Header />
-      <div >
+
+      <hr />
+
+      <div  style={{margin:'20px'}}>
         <Outlet />
       </div>
+      <hr />
+
       <Footer />
     </>
   );

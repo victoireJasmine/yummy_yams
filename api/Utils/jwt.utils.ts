@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { CustomRequest, CustomResponse } from '../Type';
+import { CustomRequest, CustomResponse } from '../type';
 const SECRET_KEY = 'votre_secret_ici';
 
 export class JwtFactoryUtils {

@@ -7,6 +7,7 @@ export enum COMBO_TYPE {
     NOTHING = 'NOTHING',
     
 }
+
 export type Result = {
     type: COMBO_TYPE;
     dices: number[];

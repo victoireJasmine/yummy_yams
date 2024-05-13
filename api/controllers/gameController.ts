@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { CustomRequest, CustomResponse } from '../Type';
+import { CustomRequest, CustomResponse } from '../type';
 import { Result, YamsGame } from '../Utils/modules/YamsGame';
 import Game from '../models/gameModel';
 import * as pastryController from '../controllers/pastryController';
@@ -31,7 +31,7 @@ export const startGame = async(req: CustomRequest, res: CustomResponse) => {
     const newGame = new Game({ user: userId });
     await newGame.save();
     
-    res.status(200).send({message: 'Game Startes'});
+    res.status(200).send({message: 'Game Started'});
   }catch(error){
     res.status(500).send({message: 'Error while starting the game'});
   }
@@ -107,6 +107,7 @@ export const checkGame = async(req: CustomRequest, res: CustomResponse, next: an
    }
   next();
 }
+
 // getWinGame
 export const getWinnersGame = async(req: CustomRequest, res: CustomResponse) => {
   try{

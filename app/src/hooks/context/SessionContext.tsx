@@ -21,7 +21,7 @@ type SessionContextProps = {
 export const SessionContext = createContext<SessionContextProps | null>(null);
 
 const SessionProvider = ({ children }: PropsWithChildren) => {
-  const [session, setSession] = useState<SessionState>(null);
+  const [session, setSession] = useState<SessionState>(SessionCookie.get());
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ const SessionProvider = ({ children }: PropsWithChildren) => {
     if (storedState) {
       setSession(storedState);
     }
+    getCurrentUser()
   }, []);
   useEffect(() => {
     session && SessionCookie.set(session);
@@ -48,11 +49,14 @@ const SessionProvider = ({ children }: PropsWithChildren) => {
     SessionCookie.set(token);
     setSession(SessionCookie.get());
 
-    getMe().then((response) => {
-      setUser(response);
-    }).finally(() => navigate('/'));
+    getCurrentUser().finally(() => navigate('/'));
   };
 
+  const getCurrentUser=():Promise<void>=>{
+    return getMe().then((response) => {
+      setUser(response);
+    })
+  }
   const hasSessionUser=():void=>{
     if(!session){
         return

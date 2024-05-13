@@ -10,7 +10,6 @@ function Header() {
 
     return (
       <header>
-        <h1>Header</h1>
         <p>Utilisateur: {useSession?.me?.name} - {useSession?.me?.email} </p>
         <button onClick={logout} >Déconnexion</button>
       </header>

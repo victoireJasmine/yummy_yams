@@ -9,7 +9,7 @@ export class SessionCookie {
 
     static set(token: string): void {
         SessionCookie.destroy();
-        Cookies.default.set(SessionCookie.TOKEN, token, { expires: 14 });
+        Cookies.default.set(SessionCookie.TOKEN, token, { expires: 14});
     }
 
     static get(): string | null {

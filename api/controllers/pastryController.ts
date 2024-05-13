@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Pastries, { IPastry } from '../models/pastryModel';
+import { CustomRequest, CustomResponse } from '../type';
 
 
 
@@ -44,3 +45,12 @@ export const updateStock = async (pastriesId: string[]) => {
     });
 }
 
+
+export const checkAvailableStock = async(req: CustomRequest, res: CustomResponse, next: any) => {
+    const pastries = await getAllPastriesInStock();
+    if(pastries.length === 0 ){
+        return res.status(400).send({message: 'Not enough pastries in stock', finished: true});
+    }
+
+    next();
+  }

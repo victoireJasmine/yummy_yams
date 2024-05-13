@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/material": "^5.15.17",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@types/material-ui": "^0.21.17",
     "@types/react-lazyload": "^3.2.3",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.6.8",
@@ -20,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-lazyload": "^3.2.1",
     "react-router-dom": "^6.23.0",
+    "styled-components": "^6.1.11",
     "web-vitals": "^3.5.2"
   },
   "devDependencies": {
