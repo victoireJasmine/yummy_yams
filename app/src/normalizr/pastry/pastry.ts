@@ -6,6 +6,7 @@ export interface Pastry {
   image: string;
   stock: number;
   quantityWon: number;
+  getImage: () => string;
 }
 
 abstract class AbstractPastry implements Pastry {
@@ -21,6 +22,10 @@ abstract class AbstractPastry implements Pastry {
     this.image = data.image;
     this.stock = data.stock; 
     this.quantityWon = data.quantityWon
+  }
+  getImage(): string {
+    return import.meta.env.VITE_YUMMY_API +'/'+this.image;
+    
   }
 }
 

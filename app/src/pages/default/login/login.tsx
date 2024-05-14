@@ -6,6 +6,7 @@ import { SessionContext } from '../../../hooks/context/SessionContext';
 import { RouterName } from '../../../core/AppRoutes/RouterNames';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 interface ErrorLogin {
   email: string;
@@ -39,7 +40,8 @@ const Login = () => {
       });
   };
   return (
-    <div>
+    <Box>
+          <div>
       <h1>Se connecter</h1>
       {message && <p style={{color:isError?'red':'green'}}>{message}</p>}
       <Formik
@@ -107,6 +109,8 @@ const Login = () => {
       </Formik>
       <p>Vous n'avez pas de compte ? <NavLink to={RouterName.SIGNUP.path}>Inscrivez-vous</NavLink></p>
     </div>
+    </Box>
+
   );
 
 } 

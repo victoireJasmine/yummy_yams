@@ -8,6 +8,7 @@ import axios, {
   import { Logger } from '../modules/Logger';
   import { NetworkError } from '../modules/Errors';
 import { SessionCookie } from '../modules/session';
+import { RouterName } from '../core/AppRoutes/RouterNames';
 
   
   const parameters = {
@@ -26,8 +27,8 @@ import { SessionCookie } from '../modules/session';
     Logger.warn('Axios interceptor: response failure', err);
     if (err.response?.status===401){
       SessionCookie.destroy();
-      // alert('session expirée, veuillez-vous reconnecter');
-      // window.location.href='/'
+       //alert('session expirée, veuillez-vous reconnecter');
+      //window.location.href= RouterName.LOGIN.path;
     }
   
     const message = err.response?.data ?? err.message;
@@ -59,7 +60,7 @@ import { SessionCookie } from '../modules/session';
   const apisFactory = () => ({
     yummy: middleware(
       axios.create({
-        baseURL: import.meta.env.VITE_YUMMY_API,
+        baseURL: import.meta.env.VITE_YUMMY_API+'/api',
         ...parameters,
         timeout: 60000,
       })

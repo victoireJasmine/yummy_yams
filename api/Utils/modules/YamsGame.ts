@@ -16,26 +16,56 @@ export type Result = {
 };
 
 export class YamsGame { 
-    private static generateDice(exclued:number[]): number {
+    private static generateDice(excluded:number[]): number {
         let randomNumber: number;
         do {
             randomNumber = Math.floor(Math.random() * 6) + 1;
-        } while (exclued.includes(randomNumber));
+        } while (excluded.includes(randomNumber));
         return randomNumber;
     }
-    private static generateDices(length:number , exclued:number[]): number[] {
-        return Array.from({ length }, () => YamsGame.generateDice(exclued));
+    private static generateDices(length:number , excluded:number[],uniq = false): number[] {
+        if (!uniq) {
+            return Array.from({ length }, () => YamsGame.generateDice(excluded));
+        }
+        let dices: number[];
+
+    do {
+        dices = Array.from({ length }, () => YamsGame.generateDice(excluded));
+    } while (YamsGame.containsInvalidCombinations(dices));
+
+    return dices;
     }
     private static generateSameDices(length: number ): number[] {
         const dice = YamsGame.generateDice([]);
         return Array.from({ length }, () => dice);
+    }
+    private static containsInvalidCombinations(dices: number[]): boolean {
+        // Compter les occurrences de chaque nombre
+        const counts: { [key: number]: number } = {};
+        for (const dice of dices) {
+            counts[dice] = (counts[dice] || 0) + 1;
+        }
+    
+        // Vérifier s'il y a des quadruples ou quintuplés
+        for (const count of Object.values(counts)) {
+            if (count === 4 || count === 5) {
+                return true; // Quadruples ou quintuplés
+            }
+        }
+    
+        // Vérifier s'il y a des doubles doubles
+        if (Object.values(counts).filter(count => count >= 2).length >= 3) {
+            return true;
+        }
+    
+        return false;
     }
 
     static launch(): Result {
         const computer = Math.random();
         let result = COMBO_TYPE.NOTHING;
         let winGame = false;
-        let dicesGame = YamsGame.generateDices(5 , []);
+        let dicesGame = YamsGame.generateDices(5 , [], true);
         let nbGift = 0;
 
 

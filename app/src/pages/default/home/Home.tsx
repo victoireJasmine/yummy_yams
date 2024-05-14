@@ -13,7 +13,12 @@ function Home() {
       navigate(RouterName.GAME.path)
     })
     .catch((error) => {
-      setMessage(error.message?.message || error.message || 'Erreur serveur');
+      const message = error.message?.message || error.message || 'Erreur serveur';
+      if (message.toLowerCase()==='game already started'){
+        navigate(RouterName.GAME.path);
+        return
+      }
+      setMessage(message);
     });
   }
     return (

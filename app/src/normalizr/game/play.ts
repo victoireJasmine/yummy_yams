@@ -6,6 +6,8 @@ export type ResultGame = {
   dices: number[];
   isWin: boolean;
   nbGift: number;
+  nameGame: () => string;
+  dice: () => string;
 };
 
 export interface PlayGame extends MessageResponse {
@@ -24,6 +26,26 @@ abstract class AbstractPlayGame implements PlayGame {
     this.result = data.result;
     this.remainingAttempt = data.remainingAttempt;
   }
+   nameGame():string {
+    switch (this.result.type) {
+        case COMBO_TYPE.TWO:
+            return 'DOUBLE';
+        
+        case COMBO_TYPE.FOUR:
+            return 'CARRE';
+        
+        case COMBO_TYPE.FULL:
+            return 'YAMS';
+
+    
+        default:
+            return 'Pas gagnant'
+    }
+}
+
+ dice():string{
+    return this.result.dices.join(' | ')
+}
 }
 
 class PlayGameRead extends AbstractPlayGame {
