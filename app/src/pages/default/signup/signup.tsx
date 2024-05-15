@@ -86,6 +86,7 @@ const Signup = () => {
                         <div>
               <p><label>Nom</label></p>
               <input
+              className="yams-input"
               type="text"
               name="name"
               onChange={handleChange}
@@ -98,6 +99,7 @@ const Signup = () => {
             <div>
               <p><label>Email</label></p>
               <input
+              className="yams-input"
               type="email"
               name="email"
               onChange={handleChange}
@@ -111,6 +113,7 @@ const Signup = () => {
             <div>
               <p><label>Password</label></p>
               <input
+              className="yams-input"
               type="password"
               name="password"
               onChange={handleChange}
@@ -120,7 +123,7 @@ const Signup = () => {
             <p style={{color:'red'}}>{errors.password && touched.password && errors.password}</p>
 
             </div>
-            <button type="submit" disabled={isSubmitting}>
+            <button className="yams-btn" type="submit" disabled={isSubmitting}>
               Submit
             </button>
           </form>

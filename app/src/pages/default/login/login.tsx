@@ -4,9 +4,8 @@ import { login , LoginParams } from '../../../network/endpoints/authentification
 import { useContext, useState } from 'react';
 import { SessionContext } from '../../../hooks/context/SessionContext';
 import { RouterName } from '../../../core/AppRoutes/RouterNames';
-import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { Box } from '@mui/material';
+
 
 interface ErrorLogin {
   email: string;
@@ -40,7 +39,7 @@ const Login = () => {
       });
   };
   return (
-    <Box>
+    
           <div>
       <h1>Se connecter</h1>
       {message && <p style={{color:isError?'red':'green'}}>{message}</p>}
@@ -78,11 +77,14 @@ const Login = () => {
             <div>
               <p><label>Email</label></p>
               <input
+              className="yams-input"
               type="email"
               name="email"
+              placeholder="Email"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
+
               />
               <p style={{color:'red'}}>{errors.email && touched.email && errors.email}</p>
               
@@ -91,8 +93,10 @@ const Login = () => {
             <div>
               <p><label>Password</label></p>
               <input
+              className="yams-input"
               type="password"
               name="password"
+              placeholder="Password"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
@@ -100,7 +104,7 @@ const Login = () => {
             <p style={{color:'red'}}>{errors.password && touched.password && errors.password}</p>
 
             </div>
-            <button type="submit" disabled={isSubmitting}>
+            <button className="yams-btn" type="submit" disabled={isSubmitting}>
               Submit
             </button>
           </form>
@@ -109,7 +113,7 @@ const Login = () => {
       </Formik>
       <p>Vous n'avez pas de compte ? <NavLink to={RouterName.SIGNUP.path}>Inscrivez-vous</NavLink></p>
     </div>
-    </Box>
+    
 
   );
 

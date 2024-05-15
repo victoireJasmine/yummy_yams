@@ -1,28 +1,31 @@
 version: '3.9'
 
 services:
-  # api:
-  #   build: ./api
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./api:/usr/src/app
-  #   environment:
-  #     - NODE_ENV=development
-  #     - PORT=3001
-  #   depends_on:
-  #     - mongo
+  api:
+    build: ./api
+    ports:
+      - 3000:3000
+    volumes:
+      - ./api:/usr/src/backend
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - MONGO_URI=mongodb://mongo:27017/maBaseDeDonnees
+    depends_on:
+      - mongo
+    networks:
+      - my-networks
 
-  # app:
-  #   build: ./app
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./app:/usr/src/app
-  #   environment:
-  #     - NODE_ENV=development
-  #   depends_on:
-  #     - api
+  app:
+    build: ./app
+    ports:
+      - "5173:80"
+    environment:
+      - NODE_ENV=production 
+    depends_on: 
+      - api
+    networks:
+      - my-networks
 
   mongo:
     image: mongo:latest
@@ -30,3 +33,9 @@ services:
       - 27017:27017
     volumes:
       - ./data:/data/db
+    networks:
+      - my-networks
+
+networks:
+  my-networks:
+    driver: bridge
